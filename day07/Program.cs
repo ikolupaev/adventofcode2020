@@ -51,19 +51,31 @@ namespace day07
             }
 
             var gold = bags["shiny gold"];
-            var distincContainers = new HashSet<Bag>();
 
-            void dfs(Bag b)
+            var distinctBags = new HashSet<Bag>();
+            void CountUniqContainers(Bag b)
             {
                 foreach (var c in b.Containers)
                 {
-                    distincContainers.Add(c);
-                    dfs(c);
+                    distinctBags.Add(c);
+                    CountUniqContainers(c);
                 }
             }
 
-            dfs(gold);
-            Console.WriteLine(distincContainers.Count);
+            CountUniqContainers(gold);
+            Console.WriteLine("answer #1: " + distinctBags.Count);
+
+            int CountBags(Bag b)
+            {
+                var total = 0;
+                foreach (var (name, count) in b.Bags)
+                {
+                    total += count + CountBags(bags[name]) * count;
+                }
+                return total;
+            }
+
+            Console.WriteLine("answer #2: " + CountBags(gold));
         }
     }
 }
