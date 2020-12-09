@@ -29,7 +29,7 @@ namespace day08
                 case "jmp":
                     {
                         var arg = int.Parse(segments[1]);
-                        return new AdventCommand(cx => cx.SI += arg - 1, command);
+                        return new AdventCommand(cx => cx.IP += arg - 1, command);
                     }
                 case "nop":
                     {
@@ -56,23 +56,23 @@ namespace day08
     public interface IAdventExecutionContext
     {
         int AX { get; set; }
-        int SI { get; set; }
+        int IP { get; set; }
     }
 
     public class AdventVm : IAdventExecutionContext
     {
         public int AX { get; set; } = 0;
-        public int SI { get; set; } = 0;
+        public int IP { get; set; } = 0;
 
         public void Execute(AdventCommand command)
         {
             command.Action(this);
-            SI++;
+            IP++;
         }
 
         public void Execute(AdventProgram program)
         {
-            SI = 0;
+            IP = 0;
             AX = 0;
             foreach (var cmd in program.Commands)
             {
@@ -91,25 +91,26 @@ namespace day08
             var vm = new AdventVm();
 
             var executed = new HashSet<int>();
-            while (!executed.Contains(vm.SI))
+            while (!executed.Contains(vm.IP))
             {
-                executed.Add(vm.SI);
-                vm.Execute(program.Commands[vm.SI]);
+                executed.Add(vm.IP);
+                vm.Execute(program.Commands[vm.IP]);
             }
 
             Console.WriteLine("Answer #1:" + vm.AX);
 
-            vm.SI = 0;
+            vm.AX = 0;
+            vm.IP = 0;
             executed.Clear();
             var changeIndex = 0;
             while (true)
             {
-                executed.Add(vm.SI);
-                vm.Execute(program.Commands[vm.SI]);
+                executed.Add(vm.IP);
+                vm.Execute(program.Commands[vm.IP]);
 
-                if (vm.SI == program.Commands.Count) break;
+                if (vm.IP == program.Commands.Count) break;
 
-                if (vm.SI > program.Commands.Count || executed.Contains(vm.SI))
+                if (vm.IP > program.Commands.Count || executed.Contains(vm.IP))
                 {
                     program = new AdventProgram();
                     program.Compile(File.ReadLines("input.txt"));
@@ -137,7 +138,7 @@ namespace day08
                     }
 
                     executed.Clear();
-                    vm.SI = 0;
+                    vm.IP = 0;
                     vm.AX = 0;
                 }
             }
