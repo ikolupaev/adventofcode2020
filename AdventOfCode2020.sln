@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "day04", "day04\day04.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "day05", "day05\day05.csproj", "{393D42DD-97CF-43E9-909B-B03711AA8B06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "day07", "day07\day07.csproj", "{A4BBAAE2-A8EC-444A-8984-EA178B058628}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "day07", "day07\day07.csproj", "{A4BBAAE2-A8EC-444A-8984-EA178B058628}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "day08", "day08\day08.csproj", "{3337C1DB-1D3C-4C08-B72A-C6A9FDFF5CB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "day08", "day08\day08.csproj", "{3337C1DB-1D3C-4C08-B72A-C6A9FDFF5CB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventVirtualMachine", "AdventVirtualMachine\AdventVirtualMachine.csproj", "{2BCBEB56-22AD-47C4-9DE7-15CF1B272B91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{3337C1DB-1D3C-4C08-B72A-C6A9FDFF5CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3337C1DB-1D3C-4C08-B72A-C6A9FDFF5CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3337C1DB-1D3C-4C08-B72A-C6A9FDFF5CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCBEB56-22AD-47C4-9DE7-15CF1B272B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCBEB56-22AD-47C4-9DE7-15CF1B272B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCBEB56-22AD-47C4-9DE7-15CF1B272B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCBEB56-22AD-47C4-9DE7-15CF1B272B91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,86 +1,10 @@
-﻿using System;
+﻿using AdventVirtualMachine;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace day08
 {
-    public class AdventProgram
-    {
-        public List<AdventCommand> Commands = new List<AdventCommand>();
-        
-        public void Compile(IEnumerable<string> source)
-        {
-            foreach (var command in source)
-            {
-                Commands.Add(CompileOne(command));
-            }
-        }
-
-        public AdventCommand CompileOne(string command)
-        {
-            var segments = command.Split();
-            switch (segments[0])
-            {
-                case "acc":
-                    {
-                        var arg = int.Parse(segments[1]);
-                        return new AdventCommand(cx => cx.AX += arg, command);
-                    }
-                case "jmp":
-                    {
-                        var arg = int.Parse(segments[1]);
-                        return new AdventCommand(cx => cx.IP += arg - 1, command);
-                    }
-                case "nop":
-                    {
-                        return new AdventCommand(cx => { }, command);
-                    }
-                default:
-                    throw new ArgumentException("unknown command:" + command);
-            }
-        }
-    }
-
-    public class AdventCommand
-    {
-        public Action<IAdventExecutionContext> Action;
-        public string Text;
-
-        public AdventCommand(Action<IAdventExecutionContext> action, string text)
-        {
-            Action = action;
-            Text = text;
-        }
-    }
-
-    public interface IAdventExecutionContext
-    {
-        int AX { get; set; }
-        int IP { get; set; }
-    }
-
-    public class AdventVm : IAdventExecutionContext
-    {
-        public int AX { get; set; } = 0;
-        public int IP { get; set; } = 0;
-
-        public void Execute(AdventCommand command)
-        {
-            command.Action(this);
-            IP++;
-        }
-
-        public void Execute(AdventProgram program)
-        {
-            IP = 0;
-            AX = 0;
-            foreach (var cmd in program.Commands)
-            {
-                Execute(cmd);
-            }
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -88,7 +12,7 @@ namespace day08
             var program = new AdventProgram();
             program.Compile(File.ReadLines("input.txt"));
 
-            var vm = new AdventVm();
+            var vm = new AdventVM();
 
             var executed = new HashSet<int>();
             while (!executed.Contains(vm.IP))
