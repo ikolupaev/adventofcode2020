@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventVirtualMachine", "Adv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "day09", "day09\day09.csproj", "{33D40822-7F60-4D22-BB54-DB29BEB35156}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "day10", "day10\day10.csproj", "{3B8F990D-05D4-4294-9A56-AB3CBD03B634}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{33D40822-7F60-4D22-BB54-DB29BEB35156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33D40822-7F60-4D22-BB54-DB29BEB35156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33D40822-7F60-4D22-BB54-DB29BEB35156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B8F990D-05D4-4294-9A56-AB3CBD03B634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B8F990D-05D4-4294-9A56-AB3CBD03B634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B8F990D-05D4-4294-9A56-AB3CBD03B634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B8F990D-05D4-4294-9A56-AB3CBD03B634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
