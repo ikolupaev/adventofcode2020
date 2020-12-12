@@ -11,7 +11,6 @@ namespace day12
             var dy = 1;
             var x = 0;
             var y = 0;
-
             foreach (var c in File.ReadLines("input.txt"))
             {
                 var v = int.Parse(c[1..]);
@@ -32,11 +31,27 @@ namespace day12
                         dx -= v;
                         break;
                     case 'R':
-                        Rotate90(ref dx, ref dy, v / 90);
+                        {
+                            var rightRotations = v / 90;
+                            for (int i = 0; i < rightRotations; i++)
+                            {
+                                var t = -dx;
+                                dx = dy;
+                                dy = t;
+                            }
+                        }
                         break;
                     case 'L':
-                        Rotate90(ref dx, ref dy, 4 - v / 90);
-                        break;
+                        {
+                            var rightRotations = 4 - v / 90;
+                            for (int i = 0; i < rightRotations; i++)
+                            {
+                                var t = -dx;
+                                dx = dy;
+                                dy = t;
+                            }
+                            break;
+                        }
                     case 'F':
                         x += dx * v;
                         y -= dy * v;
@@ -47,16 +62,6 @@ namespace day12
             }
 
             Console.WriteLine("Answer #1: " + Math.Abs(x + y));
-        }
-
-        private static void Rotate90(ref int dx, ref int dy, int rotationsCount)
-        {
-            for (int i = 0; i < rotationsCount; i++)
-            {
-                var t = -dx;
-                dx = dy;
-                dy = t;
-            }
         }
     }
 }
