@@ -26,13 +26,19 @@ namespace day11
     {
         static void Main(string[] args)
         {
-            var grid1 = File
-                .ReadLines("input.txt")
+            var input = File.ReadAllLines("input.txt");
+
+            Console.WriteLine("Answer #1: " + Solve(input, 4, 1));
+            Console.WriteLine("Answer #2: " + Solve(input, 5, int.MaxValue));
+        }
+
+        static int Solve(string[] input, int maxNeighbours, int maxDistance)
+        {
+            var grid1 = input
                 .Select(x => x.ToCharArray())
                 .ToArray();
 
-            var grid2 = File
-                .ReadLines("input.txt")
+            var grid2 = input
                 .Select(x => x.ToCharArray())
                 .ToArray();
 
@@ -59,7 +65,7 @@ namespace day11
                     foreach (var dir in deltas)
                     {
                         var p = new Vec2(row + dir.Row, col + dir.Col);
-                        while (true)
+                        for (var i = 0; i < maxDistance; i++)
                         {
                             if (p.Row < 0 || p.Col < 0 || p.Row >= height || p.Col >= width) break;
 
@@ -86,14 +92,14 @@ namespace day11
 
                         if (grid[row][col] == '.') continue;
 
-                        var neighbours = gt[row,col].Count(v => grid[v.Row][v.Col] == '#');
+                        var neighbours = gt[row, col].Count(v => grid[v.Row][v.Col] == '#');
 
                         if (grid[row][col] == 'L' && neighbours == 0)
                         {
                             grid_next[row][col] = '#';
                             changed++;
                         }
-                        else if (grid[row][col] == '#' && neighbours > 4)
+                        else if (grid[row][col] == '#' && neighbours >= maxNeighbours)
                         {
                             grid_next[row][col] = 'L';
                             changed++;
@@ -105,8 +111,7 @@ namespace day11
 
                 if (changed == 0)
                 {
-                    Console.WriteLine("Answer #2: " + occuped);
-                    break;
+                    return occuped;
                 }
 
                 if (grid == grid1)
