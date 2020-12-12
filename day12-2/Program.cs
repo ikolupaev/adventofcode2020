@@ -32,10 +32,10 @@ namespace day12
                         dx -= v;
                         break;
                     case 'R':
-                        Rotate90(ref dx, ref dy, v/90);
+                        Rotate90(ref dx, ref dy, v / 90);
                         break;
                     case 'L':
-                        Rotate90(ref dx, ref dy, 4-v/90);
+                        Rotate90(ref dx, ref dy, 4 - v / 90);
                         break;
                     case 'F':
                         x += dx * v;
@@ -46,7 +46,7 @@ namespace day12
                 }
             }
 
-            Console.WriteLine("Answer #1: " + Math.Abs(x + y));
+            Console.WriteLine("Answer #2: " + Math.Abs(x + y));
         }
 
         private static void Rotate90(ref int dx, ref int dy, int rotationsCount)
