@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace day14_2
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            var timer = Stopwatch.StartNew();
+
             var memory = new Dictionary<ulong, ulong>();
-            var maskRegex = new Regex(@"mask = (.+)$");
             var memRegex = new Regex(@"mem\[(?<address>\d+)\] = (?<value>\d+)$");
 
             var mask1 = 0UL;
             var floatingBits = new int[36];
             var floatingBitsCounter = 0;
+
             foreach (var line in File.ReadLines("input.txt"))
             {
-                var mask = maskRegex.Match(line);
-                if (mask.Success)
+                if (line[1] == 'a')
                 {
                     mask1 = 0;
                     floatingBitsCounter = 0;
-                    var maskStr = mask.Groups[1].Value;
 
-                    for (var i = 0; i < maskStr.Length; i++)
+                    for (var i = 7; i < 43; i++)
                     {
                         mask1 <<= 1;
 
-                        if (maskStr[i] == 'X')
+                        if (line[i] == 'X')
                         {
-                            floatingBits[floatingBitsCounter++] = maskStr.Length - i - 1;
+                            floatingBits[floatingBitsCounter++] = 42 - i;
                         }
                         else
                         {
-                            mask1 |= (uint)(maskStr[i] - '0');
+                            mask1 |= (uint)(line[i] - '0');
                         }
                     }
                 }
@@ -52,6 +53,7 @@ namespace day14_2
 
             var answer = memory.Values.Aggregate((a, b) => a += b);
             Console.WriteLine("Answer #2: " + answer);
+            Console.WriteLine("Elapsed (ms): " + timer.ElapsedMilliseconds);
         }
 
         private static void SetAddress(Dictionary<ulong, ulong> memory, ulong value, ulong address, Span<int> floatingBits)
