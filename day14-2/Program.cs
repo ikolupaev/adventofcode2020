@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace day14_2
 {
     public class Program
     {
-        static void Main()
+        public static void Main()
         {
-            var timer = Stopwatch.StartNew();
+            Console.WriteLine("Answer #2: " + Solve(File.ReadAllLines("input.txt")));
+        }
 
+        public static ulong Solve(string[] lines)
+        {
             var memory = new Dictionary<ulong, ulong>();
-            var memRegex = new Regex(@"mem\[(?<address>\d+)\] = (?<value>\d+)$");
 
             var mask1 = 0UL;
             var floatingBits = new int[36];
             var floatingBitsCounter = 0;
 
-            foreach (var line in File.ReadLines("input.txt"))
+            foreach(var line in lines)
             {
                 if (line[1] == 'a')
                 {
@@ -43,17 +43,30 @@ namespace day14_2
                 }
                 else
                 {
-                    var mem = memRegex.Match(line);
-                    var address = ulong.Parse(mem.Groups["address"].Value);
-                    var value = ulong.Parse(mem.Groups["value"].Value);
+                    var address = 0ul;
+                    var i = 4;
+                    while (true)
+                    {
+                        var ch = line[i++];
+                        if (ch == ']') break;
+                        address = address * 10 + ch - '0';
+                    }
+
+                    var value = 0ul;
+                    i += 3;
+                    while (i < line.Length)
+                    {
+                        value = value * 10 + line[i++] - '0';
+                    }
 
                     SetAddress(memory, value, address | mask1, floatingBits.AsSpan(0, floatingBitsCounter));
                 }
             }
 
-            var answer = memory.Values.Aggregate((a, b) => a += b);
-            Console.WriteLine("Answer #2: " + answer);
-            Console.WriteLine("Elapsed (ms): " + timer.ElapsedMilliseconds);
+            var answer = 0ul;
+            foreach (var item in memory.Values) answer += item;
+            
+            return answer;
         }
 
         private static void SetAddress(Dictionary<ulong, ulong> memory, ulong value, ulong address, Span<int> floatingBits)
