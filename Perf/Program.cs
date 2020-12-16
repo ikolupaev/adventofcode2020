@@ -1,24 +1,25 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using System.IO;
+using System.Linq;
 
 namespace Perf
 {
     [MemoryDiagnoser]
     public class test
     {
-        string[] input;
+
+        int[] input;
         public test()
         {
-
-            input = File.ReadAllLines("input.txt");
+            input = File
+                .ReadLines("input.txt")
+                .SelectMany(x => x.Split(','), (c, x) => int.Parse(x))
+                .ToArray();
         }
 
         [Benchmark]
-        public void Run14_2_With_IO() => day14_2.Program.Main();
-        
-        [Benchmark]
-        public void Run14_2_No_IO() => day14_2.Program.Solve(input);
+        public void Run15() => day15.Program.Solve(input, 30000000);
     }
 
     class Program

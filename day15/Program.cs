@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace day15
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -18,13 +17,13 @@ namespace day15
             Console.WriteLine("Answer #2: " + Solve(inputNumbers, 30000000));
         }
 
-        private static int Solve(int[] inputNumbers, int lastTurn)
+        public static int Solve(int[] inputNumbers, int lastTurn)
         {
-            var numbers = new Dictionary<int, int>();
+            var numbers = new int[lastTurn];
 
             for (var i = 0; i < inputNumbers.Length - 1; i++)
             {
-                numbers.Add(inputNumbers[i], i + 1);
+                numbers[inputNumbers[i]] = i + 1;
             }
 
             var lastTurnNumber = inputNumbers.Last();
@@ -33,8 +32,8 @@ namespace day15
             for (var turn = inputNumbers.Length; turn < lastTurn; turn++)
             {
                 nextTurnNumber = 0;
-
-                if (numbers.TryGetValue(lastTurnNumber, out var prevTurn))
+                var prevTurn = numbers[lastTurnNumber];
+                if (prevTurn > 0)
                 {
                     nextTurnNumber = turn - prevTurn;
                 }
