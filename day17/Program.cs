@@ -47,6 +47,16 @@ namespace day17
         public bool Equals(Vec other) => other.scalar == scalar;
         public override bool Equals(object obj) => Equals(obj as Vec);
         public override int GetHashCode() => scalar;
+
+        internal Vec Add(Vec x)
+        {
+            var newvec = new int[Coordinates.Length];
+            for (var i = 0; i < newvec.Length; i++)
+            {
+                newvec[i] = Coordinates[i] + x.Coordinates[i];
+            }
+            return new Vec(newvec);
+        }
     }
 
     public class Program
@@ -80,14 +90,17 @@ namespace day17
                 y++;
             }
 
+            var nVectors = new Vec(new int[dimentions]).GetNeighbours();
+
             for (int i = 0; i < 6; i++)
             {
                 var activeCells2 = activeCells.ToHashSet();
-                var cells = activeCells.Concat(activeCells.SelectMany(x => x.GetNeighbours())).ToHashSet();
+
+                var cells = activeCells.Concat(activeCells.SelectMany(x => nVectors.Select(nv => nv.Add(x)))).ToHashSet();
 
                 foreach (var c in cells)
                 {
-                    var activeNeighbours = c.GetNeighbours().Count(n => activeCells.Contains(n));
+                    var activeNeighbours = nVectors.Select(nv => nv.Add(c)).Count(n => activeCells.Contains(n));
                     if (activeCells.Contains(c))
                     {
                         if (activeNeighbours < 2 || activeNeighbours > 3) activeCells2.Remove(c);
