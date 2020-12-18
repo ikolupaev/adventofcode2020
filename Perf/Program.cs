@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using System.IO;
-using System.Linq;
 
 namespace Perf
 {
@@ -9,17 +8,17 @@ namespace Perf
     public class test
     {
 
-        int[] input;
+        string[] input;
         public test()
         {
             input = File
-                .ReadLines("input.txt")
-                .SelectMany(x => x.Split(','), (c, x) => int.Parse(x))
-                .ToArray();
+                .ReadAllLines("input.txt");
         }
 
+        [Benchmark()]
+        public void Run3() => day17.Program.Solve(input, 3);
         [Benchmark]
-        public void Run15() => day15.Program.Solve(input, 30000000);
+        public void Run4() => day17.Program.Solve(input, 4);
     }
 
     class Program
