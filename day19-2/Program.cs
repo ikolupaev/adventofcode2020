@@ -63,9 +63,9 @@ namespace day19_1
                     s = s[rule42Len..];
                     rule42Count++;
                 }
-                if (rule42Count < rule31Count+1) continue;
+                if (rule42Count < rule31Count + 1) continue;
 
-                if(s.Length == 0) answer++;
+                if (s.Length == 0) answer++;
             }
 
             Console.WriteLine(answer);

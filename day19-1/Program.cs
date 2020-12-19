@@ -25,10 +25,10 @@ namespace day19_1
             while (input.MoveNext() && input.Current.Length > 0)
             {
                 var fragments = input.Current.Split(':');
-                rules[int.Parse(fragments[0])] = new Rule 
-                { 
-                    Id = int.Parse(fragments[0]), 
-                    Source = fragments[1].Trim() 
+                rules[int.Parse(fragments[0])] = new Rule
+                {
+                    Id = int.Parse(fragments[0]),
+                    Source = fragments[1].Trim()
                 };
             }
 
